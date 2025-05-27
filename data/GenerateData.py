@@ -21,8 +21,8 @@ employees = [{"id": "E1", "hours_avail": 10, "skill_level": 4, "skills": ["A", "
             {"id": "E5", "hours_avail": 9, "skill_level": 5, "skills": ["A", "C"]}]
 
 def generate_assignments_csv(seed):
-    num_samples=100
-    output_file="assignment_output.csv"
+    num_samples = 100
+    output_file = "task_assignment_data.csv"
     
     num_employees = len(employees)
     num_tasks = len(tasks)
@@ -30,11 +30,17 @@ def generate_assignments_csv(seed):
     # Map index to employee ID (0 → E1, 1 → E2, ...)
     emp_id_map = {i: emp["id"] for i, emp in enumerate(employees)}
 
+    # Build header: one column per task ID, then 'penalty'
+    header = [task["id"] for task in tasks] + ["penalty"]
+
     # Set random seed
     random.seed(seed)
 
     with open(output_file, mode='w', newline='') as file:
         writer = csv.writer(file)
+
+        # Write header row
+        writer.writerow(header)
 
         for _ in range(num_samples):
             # Generate a random assignment
@@ -42,11 +48,10 @@ def generate_assignments_csv(seed):
             penalty = evaluate_penalty(tasks, employees, assignment)
 
             # Convert employee indices to readable IDs
-            assignment_ids = [emp_id_map[emp_idx] for emp_idx in assignment]
+            assignment_ids = [emp_id_map[idx] for idx in assignment]
 
-            # Append penalty cost
-            row = assignment_ids + [penalty]
-            writer.writerow(row)
+            # Write assignment + penalty
+            writer.writerow(assignment_ids + [penalty])
 
     print(f"{num_samples} seeded task-employee assignments saved to '{output_file}'.")
 
