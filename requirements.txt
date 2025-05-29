@@ -1,0 +1,5 @@
+python>=3.7+
+numpy>=1.20
+pandas>=1.2
+matplotlib>=3.3
+jupyter>=1.0          # for running notebooks locally
