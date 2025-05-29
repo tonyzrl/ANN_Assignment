@@ -29,6 +29,7 @@ A self-contained implementation of a feed-forward artificial neural network (ANN
 
 └── ANN_Notebook.ipynb ← Google Colab notebook: data prep, model code, training & plots
 
+
 Data directory contains the input assignment mapping data and the Python program used to generate the input mapping. Results directory contains all the comparison plots from running the notebook in Google Colab.
 The implementation of the neural network is done within the ANN_Notebook.ipynb Python notebook.
 
